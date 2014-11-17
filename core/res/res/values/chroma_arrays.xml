@@ -31,4 +31,8 @@
         <item>recovery</item>
         <item>bootloader</item>
      </string-array>
+
+    <string-array name="notification_light_package_mapping" translatable="false">
+        <item>com.google.android.gsf|com.google.android.talk</item>
+    </string-array>
 </resources>
