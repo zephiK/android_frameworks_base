@@ -1503,7 +1503,7 @@ public class NotificationPanelView extends PanelView implements
                 && y >= header.getTop() && y <= header.getBottom();
 
         final float w = (header.getX() + header.getWidth());
-        float region = (w * (1.f/3.f)); // TODO overlay region fraction?
+        float region = (w * (1.f/4.f)); // TODO overlay region fraction?
 
         boolean showQsOverride = isLayoutRtl() ? (x < region) : (w - region < x);
 
