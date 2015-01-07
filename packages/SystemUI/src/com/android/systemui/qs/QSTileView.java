@@ -218,6 +218,14 @@ public class QSTileView extends ViewGroup {
         mClickLong = clickLong;
     }
 
+    private Drawable getTileBackground() {
+        final int[] attrs = new int[] { android.R.attr.selectableItemBackgroundBorderless };
+        final TypedArray ta = mContext.obtainStyledAttributes(attrs);
+        final Drawable d = ta.getDrawable(0);
+        ta.recycle();
+        return d;
+    }
+
     protected View createIcon() {
         final ImageView icon = new ImageView(mContext);
         icon.setId(android.R.id.icon);
