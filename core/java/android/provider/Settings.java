@@ -5996,6 +5996,12 @@ public final class Settings {
          */
         public static final String ASSISTANT = "assistant";
 
+        /** Whether to show the brightness slider in quick settings panel.
+         *
+         * @hide
+         */
+        public static final String QS_SHOW_BRIGHTNESS_SLIDER = "qs_show_brightness_slider";
+
          /**
           * Whether to allow killing of the foreground app by long-pressing the Back button
           * @hide
