@@ -2189,11 +2189,6 @@ public final class Settings {
          */
         public static final String NAV_BUTTONS = "nav_buttons";
 
-         /**
-         * @hide
-         */
-        public static final String QS_LOCATION_ADVANCED = "qs_location_advanced";
-
         /**
          * @deprecated Use {@link android.provider.Settings.Global#AIRPLANE_MODE_ON} instead
          */
@@ -6211,6 +6206,12 @@ public final class Settings {
          */
         public static final String CAMERA_DOUBLE_TAP_POWER_GESTURE_DISABLED =
                 "camera_double_tap_power_gesture_disabled";
+
+         /**
+         * Whether detail view for the location tile is enabled
+         * @hide
+         */
+        public static final String QS_LOCATION_ADVANCED = "qs_location_advanced";
 
         /**
          * This are the settings to be backed up.
