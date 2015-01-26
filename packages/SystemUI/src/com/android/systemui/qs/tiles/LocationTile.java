@@ -24,8 +24,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.internal.logging.MetricsLogger;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.CheckedTextView;
+import android.widget.ListView;
 import com.android.systemui.R;
-import com.android.systemui.qs.QSDetailItems;
+import com.android.systemui.qs.QSDetailItemsList;
 import com.android.systemui.qs.QSTile;
 import com.android.systemui.statusbar.policy.KeyguardMonitor;
 import com.android.systemui.statusbar.policy.LocationController;
@@ -33,12 +38,19 @@ import com.android.systemui.statusbar.policy.LocationController.LocationSettings
 
 /** Quick settings tile: Location **/
 public class LocationTile extends QSTile<QSTile.BooleanState> {
-    private static final Intent LOCATION_SETTINGS = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+    private static final Intent LOCATION_SETTINGS_INTENT
+            = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+    public static final Integer[] LOCATION_SETTINGS = new Integer[]{
+            Settings.Secure.LOCATION_MODE_BATTERY_SAVING,
+            Settings.Secure.LOCATION_MODE_SENSORS_ONLY,
+            Settings.Secure.LOCATION_MODE_HIGH_ACCURACY
+    };
 
     private final AnimationIcon mEnable =
             new AnimationIcon(R.drawable.ic_signal_location_enable_animation);
     private final AnimationIcon mDisable =
             new AnimationIcon(R.drawable.ic_signal_location_disable_animation);
+    private final List<Integer> mLocationList = new ArrayList<>();
 
     private final LocationController mController;
     private final LocationDetailAdapter mDetailAdapter;
@@ -86,7 +98,7 @@ public class LocationTile extends QSTile<QSTile.BooleanState> {
 
     @Override
     protected void handleLongClick() {
-        mHost.startActivityDismissingKeyguard(LOCATION_SETTINGS);
+        mHost.startActivityDismissingKeyguard(LOCATION_SETTINGS_INTENT);
     }
 
     @Override
@@ -99,7 +111,7 @@ public class LocationTile extends QSTile<QSTile.BooleanState> {
         // state.visible = !(mKeyguard.isSecure() && mKeyguard.isShowing());
         state.visible = !mKeyguard.isShowing();
         state.value = locationEnabled;
-	state.label = mContext.getString(getStateLabelRes(currentState));
+	    state.label = mContext.getString(getStateLabelRes(currentState));
 
         switch (currentState) {
             case Settings.Secure.LOCATION_MODE_OFF:
@@ -160,8 +172,6 @@ public class LocationTile extends QSTile<QSTile.BooleanState> {
     private final class Callback implements LocationSettingsChangeCallback,
             KeyguardMonitor.Callback {
         @Override
-            mDetailAdapter.setLocationEnabled(enabled);
-            mDetailAdapter.setLocationMode(mController.getLocationCurrentState());
         public void onLocationSettingsChanged(boolean enabled) {
             refreshState();
         }
@@ -172,9 +182,24 @@ public class LocationTile extends QSTile<QSTile.BooleanState> {
         }
     };
 
-    private class LocationDetailAdapter implements DetailAdapter {
+    private class AdvancedLocationAdapter extends ArrayAdapter<Integer> {
+        public AdvancedLocationAdapter(Context context) {
+            super(context, android.R.layout.simple_list_item_single_choice, mLocationList);
+        }
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            LayoutInflater inflater = LayoutInflater.from(mContext);
+            CheckedTextView label = (CheckedTextView) inflater.inflate(
+                    android.R.layout.simple_list_item_single_choice, parent, false);
+            label.setText(getStateLabelRes(getItem(position)));
+            return label;
+        }
+    }
 
-        private LocationDetailView mLocationDetailView;
+    private class LocationDetailAdapter implements DetailAdapter, AdapterView.OnItemClickListener {
+
+        private AdvancedLocationAdapter mAdapter;
+        private QSDetailItemsList mDetails;
 
         @Override
         public int getTitle() {
@@ -183,35 +208,52 @@ public class LocationTile extends QSTile<QSTile.BooleanState> {
 
         @Override
         public Boolean getToggleState() {
-            return mController.getLocationCurrentState() != Settings.Secure.LOCATION_MODE_OFF;
+            boolean state = mController.getLocationCurrentState()
+                    != Settings.Secure.LOCATION_MODE_OFF;
+            rebuildLocationList(state);
+            return state;
         }
 
         @Override
         public Intent getSettingsIntent() {
-            return LOCATION_SETTINGS;
+            return LOCATION_SETTINGS_INTENT;
         }
 
         @Override
         public void setToggleState(boolean state) {
             mController.setLocationEnabled(state);
+            rebuildLocationList(state);
+            fireToggleStateChanged(state);
         }
 
         @Override
         public View createDetailView(Context context, View convertView, ViewGroup parent) {
-            final LocationDetailView v = (LocationDetailView) (LayoutInflater.from(mContext).inflate(R.layout.location, parent, false));
-            mLocationDetailView = v;
-            mLocationDetailView.setLocationController(mController);
-            setLocationMode(mController.getLocationCurrentState());
-            return v;
+            mDetails = QSDetailItemsList.convertOrInflate(context, convertView, parent);
+            mDetails.setEmptyState(R.drawable.ic_qs_location_off,
+                    R.string.accessibility_quick_settings_location_off);
+            mAdapter = new LocationTile.AdvancedLocationAdapter(context);
+            mDetails.setAdapter(mAdapter);
+
+            final ListView list = mDetails.getListView();
+            list.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
+            list.setOnItemClickListener(this);
+
+            return mDetails;
         }
 
-        public void setLocationEnabled(boolean enabled) {
-            fireToggleStateChanged(enabled);
+        private void rebuildLocationList(boolean populate) {
+            mLocationList.clear();
+            if (populate) {
+                mLocationList.addAll(Arrays.asList(LOCATION_SETTINGS));
+                mDetails.getListView().setItemChecked(mAdapter.getPosition(
+                        mController.getLocationCurrentState()), true);
+            }
+            mAdapter.notifyDataSetChanged();
         }
 
-        public void setLocationMode(int mode) {
-            if(mLocationDetailView != null)
-                mLocationDetailView.setLocationMode(mode);
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            mController.setLocationMode((Integer) parent.getItemAtPosition(position));
         }
     }
 }
