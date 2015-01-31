@@ -102,6 +102,7 @@
     <string name="quick_settings_expanded_desktop">Expanded</string>
     <string name="quick_settings_expanded_desktop_off">Normal</string>
     <string name="quick_settings_screen_timeout_detail_title">Screen timeout</string>
+    <string name="quick_settings_screenshot">Screenshot</string>
 
     <!-- Content description of the sync tile in quick settings when off (not shown on the screen). [CHAR LIMIT=NONE] -->
     <string name="accessibility_quick_settings_sync_off">Sync off.</string>
