@@ -34,6 +34,7 @@ public class QSConstants {
     public static final String TILE_HOTSPOT = "hotspot";
     public static final String TILE_SCREEN_TIMEOUT = "screen_timeout";
     public static final String TILE_SYNC = "sync";
+    public static final String TILE_BRIGHTNESS = "brightness";
 
     // Order matters
     protected static final ArrayList<String> TILES_DEFAULT = new ArrayList<String>();
@@ -58,5 +59,6 @@ public class QSConstants {
         TILES_AVAILABLE.add(TILE_HOTSPOT);
         TILES_AVAILABLE.add(TILE_SCREEN_TIMEOUT);
         TILES_AVAILABLE.add(TILE_SYNC);
+        TILES_AVAILABLE.add(TILE_BRIGHTNESS);
     }
 }
