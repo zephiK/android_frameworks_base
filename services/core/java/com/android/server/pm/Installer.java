@@ -108,6 +108,13 @@ public final class Installer extends SystemService {
         return mInstaller.execute(builder.toString());
     }
 
+    public int removeIdmap(String overlayApkPath) {
+        StringBuilder builder = new StringBuilder("rmidmap");
+        builder.append(' ');
+        builder.append(overlayApkPath);
+        return mInstaller.execute(builder.toString());
+    }
+
     public int movedex(String srcPath, String dstPath, String instructionSet) {
         if (!isValidInstructionSet(instructionSet)) {
             Slog.e(TAG, "Invalid instruction set: " + instructionSet);
