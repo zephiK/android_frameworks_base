@@ -200,13 +200,13 @@ public final class Bundle extends BaseBundle implements Cloneable, Parcelable {
                 }
             } else {
                 // It's been unparcelled, so we need to walk the map
-                for (int i=mMap.size()-1; i>=0; i--) {
+                LOOP: for (int i=mMap.size()-1; i>=0; i--) {
                     Object obj = mMap.valueAt(i);
                     if (obj instanceof Parcelable) {
                         if ((((Parcelable)obj).describeContents()
                                 & Parcelable.CONTENTS_FILE_DESCRIPTOR) != 0) {
                             fdFound = true;
-                            break;
+                            break LOOP;
                         }
                     } else if (obj instanceof Parcelable[]) {
                         Parcelable[] array = (Parcelable[]) obj;
@@ -215,7 +215,7 @@ public final class Bundle extends BaseBundle implements Cloneable, Parcelable {
                             if (p != null && ((p.describeContents()
                                     & Parcelable.CONTENTS_FILE_DESCRIPTOR) != 0)) {
                                 fdFound = true;
-                                break;
+                                break LOOP;
                             }
                         }
                     } else if (obj instanceof SparseArray) {
@@ -226,7 +226,7 @@ public final class Bundle extends BaseBundle implements Cloneable, Parcelable {
                             if (p != null && (p.describeContents()
                                     & Parcelable.CONTENTS_FILE_DESCRIPTOR) != 0) {
                                 fdFound = true;
-                                break;
+                                break LOOP;
                             }
                         }
                     } else if (obj instanceof ArrayList) {
@@ -239,7 +239,7 @@ public final class Bundle extends BaseBundle implements Cloneable, Parcelable {
                                 if (p != null && ((p.describeContents()
                                         & Parcelable.CONTENTS_FILE_DESCRIPTOR) != 0)) {
                                     fdFound = true;
-                                    break;
+                                    break LOOP;
                                 }
                             }
                         }
