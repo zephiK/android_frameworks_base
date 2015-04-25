@@ -217,5 +217,5 @@
     <integer name="def_tether_dun_required">0</integer>
 
     <!-- Default for Settings.System.STATUS_BAR_BATTERY_STYLE -->
-    <integer name="def_battery_style">0</integer>
+    <integer name="def_battery_style">2</integer>
 </resources>
