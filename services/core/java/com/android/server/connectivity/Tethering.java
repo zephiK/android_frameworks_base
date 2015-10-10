@@ -40,7 +40,6 @@ import android.os.Binder;
 import android.os.INetworkManagementService;
 import android.os.Looper;
 import android.os.Message;
-import android.os.SystemProperties;
 import android.os.UserHandle;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -640,12 +639,11 @@ public class Tethering extends BaseNetworkObserver {
     }
 
     public void checkDunRequired() {
-        int secureSetting = Settings.Global.getInt(mContext.getContentResolver(),
-                Settings.Global.TETHER_DUN_REQUIRED, 2);
-        // Allow override of TETHER_DUN_REQUIRED via prop
-        int prop = SystemProperties.getInt("persist.sys.dun.override", -1);
-        secureSetting = ((prop < 3) && (prop >= 0)) ? prop : secureSetting;
-
+        int secureSetting = 2;
+        TelephonyManager tm = (TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE);
+        if (tm != null) {
+            secureSetting = tm.getTetherApnRequired();
+        }
         synchronized (mPublicSync) {
             // 2 = not set, 0 = DUN not required, 1 = DUN required
             if (secureSetting != 2) {
