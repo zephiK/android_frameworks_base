@@ -39,7 +39,6 @@ public class TunerFragment extends PreferenceFragment {
     private static final String TAG = "TunerFragment";
 
     private static final String KEY_QS_TUNER = "qs_tuner";
-    private static final String KEY_DEMO_MODE = "demo_mode";
 
     public static final String SETTING_SEEN_TUNER_WARNING = "seen_tuner_warning";
 
@@ -57,16 +56,6 @@ public class TunerFragment extends PreferenceFragment {
             public boolean onPreferenceClick(Preference preference) {
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.replace(android.R.id.content, new QsTuner(), "QsTuner");
-                ft.addToBackStack(null);
-                ft.commit();
-                return true;
-            }
-        });
-        findPreference(KEY_DEMO_MODE).setOnPreferenceClickListener(new OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(android.R.id.content, new DemoModeFragment(), "DemoMode");
                 ft.addToBackStack(null);
                 ft.commit();
                 return true;
