@@ -92,7 +92,7 @@ public class CastTile extends QSTile<QSTile.BooleanState> {
 
     @Override
     protected void handleLongClick() {
-        mHost.startSettingsActivity(CAST_SETTINGS);
+        mHost.startActivityDismissingKeyguard(CAST_SETTINGS);
     }
 
     @Override
