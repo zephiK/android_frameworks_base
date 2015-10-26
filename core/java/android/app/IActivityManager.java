@@ -411,8 +411,7 @@ public interface IActivityManager extends IInterface {
     public void keyguardWaitingForActivityDrawn() throws RemoteException;
 
     public void keyguardGoingAway(boolean disableWindowAnimations,
-            boolean keyguardGoingToNotificationShade, boolean keyguardShowingMedia)
-            throws RemoteException;
+            boolean keyguardGoingToNotificationShade) throws RemoteException;
 
     public boolean shouldUpRecreateTask(IBinder token, String destAffinity)
             throws RemoteException;

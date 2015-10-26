@@ -1419,8 +1419,7 @@ public class KeyguardViewMediator extends SystemUI {
                 ActivityManagerNative.getDefault().keyguardGoingAway(
                         mStatusBarKeyguardViewManager.shouldDisableWindowAnimationsForUnlock()
                                 || mWakeAndUnlocking,
-                        mStatusBarKeyguardViewManager.isGoingToNotificationShade(),
-                        mStatusBarKeyguardViewManager.isKeyguardShowingMedia());
+                        mStatusBarKeyguardViewManager.isGoingToNotificationShade());
             } catch (RemoteException e) {
                 Log.e(TAG, "Error while calling WindowManager", e);
             }

@@ -2657,12 +2657,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
 
 
     @Override
-    public Animation createForceHideWallpaperExitAnimation(boolean goingToNotificationShade,
-            boolean keyguardShowingMedia) {
+    public Animation createForceHideWallpaperExitAnimation(boolean goingToNotificationShade) {
         if (goingToNotificationShade) {
             return null;
-        } else if (keyguardShowingMedia) {
-            return AnimationUtils.loadAnimation(mContext, R.anim.lock_screen_wallpaper_exit_noop);
         } else {
             return AnimationUtils.loadAnimation(mContext, R.anim.lock_screen_wallpaper_exit);
         }

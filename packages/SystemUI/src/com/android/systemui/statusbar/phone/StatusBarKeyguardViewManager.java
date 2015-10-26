@@ -471,10 +471,6 @@ public class StatusBarKeyguardViewManager {
         return mViewMediatorCallback.isInputRestricted();
     }
 
-    public boolean isKeyguardShowingMedia() {
-        return mPhoneStatusBar.isKeyguardShowingMedia();
-    }
-
     public void keyguardGoingAway() {
         mPhoneStatusBar.keyguardGoingAway();
     }
