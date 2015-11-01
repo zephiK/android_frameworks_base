@@ -354,10 +354,6 @@ public class WallpaperManager {
         }
 
         private Bitmap getCurrentKeyguardWallpaperLocked(Context context) {
-            if (mService == null) {
-                Log.w(TAG, "WallpaperService not running");
-                return null;
-            }
             try {
                 Bundle params = new Bundle();
                 ParcelFileDescriptor fd = mService.getKeyguardWallpaper(this, params);
