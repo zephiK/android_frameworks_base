@@ -3618,12 +3618,6 @@ public final class Settings {
          */
         public static final String NETWORK_TRAFFIC_AUTOHIDE_THRESHOLD = "network_traffic_autohide_threshold";
 
-        /**
-         * Whether to show the IME arrows in the status bar
-         * @hide
-         */
-        public static final String STATUS_BAR_IME_ARROWS = "status_bar_ime_arrows";
-
          /**
          * Whether the notification light will be allowed when in zen mode during downtime
          * @hide
