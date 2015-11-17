@@ -56,8 +56,6 @@ import com.android.server.pm.PackageManagerService;
 
 import android.util.Log;
 import android.view.WindowManager;
-import java.lang.reflect.Method;
-import dalvik.system.PathClassLoader;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -706,7 +704,6 @@ public final class ShutdownThread extends Thread {
      * @param reason reason for reboot
      */
     public static void rebootOrShutdown(final Context context, boolean reboot, String reason) {
-        deviceRebootOrShutdown(reboot, reason);
         if (reboot) {
             Log.i(TAG, "Rebooting, reason: " + reason);
             PowerManagerService.lowLevelReboot(reason);
@@ -731,30 +728,6 @@ public final class ShutdownThread extends Thread {
         // Shutdown power
         Log.i(TAG, "Performing low-level shutdown...");
         PowerManagerService.lowLevelShutdown();
-    }
-
-    private static void deviceRebootOrShutdown(boolean reboot, String reason) {
-        Class<?> cl;
-        PathClassLoader oemClassLoader = new PathClassLoader("/system/framework/oem-services.jar",
-            ClassLoader.getSystemClassLoader());
-        String deviceShutdownClassName = "com.qti.server.power.ShutdownOem";
-        try{
-            cl = Class.forName(deviceShutdownClassName);
-            Method m;
-            try {
-                m = cl.getMethod("rebootOrShutdown", new Class[] {boolean.class, String.class});
-                m.invoke(cl.newInstance(), reboot, reason);
-            } catch (NoSuchMethodException ex) {
-                Log.e(TAG, "rebootOrShutdown method not found in class "
-                        + deviceShutdownClassName);
-            } catch (Exception ex) {
-                Log.e(TAG, "Unknown exception hit while trying to invoke rebootOrShutdown");
-            }
-        } catch(ClassNotFoundException e) {
-            Log.e(TAG, "Unable to find class " + deviceShutdownClassName);
-        } catch (Exception e) {
-            Log.e(TAG, "Unknown exception while trying to invoke rebootOrShutdown");
-        }
     }
 
     private void uncrypt() {
