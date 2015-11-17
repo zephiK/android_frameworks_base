@@ -16,6 +16,6 @@
 -->
 <resources>
     <!-- Floating action button -->
-    <color name="fab_color">#ff009688</color>
+    <color name="fab_color">@*android:color/material_deep_teal_500</color>
     <color name="floating_action_button_icon_color">#ffffff</color>
 </resources>
