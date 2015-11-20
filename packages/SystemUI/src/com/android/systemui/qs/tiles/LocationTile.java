@@ -36,6 +36,10 @@ import com.android.systemui.statusbar.policy.KeyguardMonitor;
 import com.android.systemui.statusbar.policy.LocationController;
 import com.android.systemui.statusbar.policy.LocationController.LocationSettingsChangeCallback;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /** Quick settings tile: Location **/
 public class LocationTile extends QSTile<QSTile.BooleanState> {
     private static final Intent LOCATION_SETTINGS_INTENT
@@ -91,10 +95,10 @@ public class LocationTile extends QSTile<QSTile.BooleanState> {
             showDetail(true);
         } else {
             mController.setLocationEnabled(!mController.isLocationEnabled());
-        mController.setLocationEnabled(!wasEnabled);
         mEnable.setAllowAnimation(true);
         mDisable.setAllowAnimation(true);
     }
+}
 
     @Override
     protected void handleLongClick() {
@@ -254,6 +258,11 @@ public class LocationTile extends QSTile<QSTile.BooleanState> {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             mController.setLocationMode((Integer) parent.getItemAtPosition(position));
+        }
+
+        @Override
+        public int getMetricsCategory() {
+        return MetricsLogger.QS_LOCATION;
         }
     }
 }
