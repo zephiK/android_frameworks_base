@@ -400,7 +400,7 @@ public class StatusBarWindowView extends FrameLayout {
         public void update() {
             ContentResolver resolver = mContext.getContentResolver();
             mDoubleTapToSleepEnabled = Settings.System.getInt(
-                    resolver, Settings.System.DOUBLE_TAP_SLEEP_GESTURE, 1) == 1;
+                    resolver, Settings.System.DOUBLE_TAP_SLEEP_GESTURE, 0) == 1;
             mDoubleTapToSleepLockScreen = Settings.System.getIntForUser(resolver,
                     Settings.System.DOUBLE_TAP_SLEEP_LOCK_SCREEN, 0, UserHandle.USER_CURRENT) == 1;
         }
