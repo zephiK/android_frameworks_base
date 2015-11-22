@@ -53,5 +53,8 @@
     <!-- Vendor mismatched fingerprint warning [CHAR LIMIT=NONE] -->
     <string name="system_error_vendorprint">It appears your vendor image may be out of date. Please flash the latest vendor image for your device.</string>
 
+    <!-- [CHAR LIMIT=40] Title of dialog that is shown when system is starting. -->
+    <string name="chroma_start_title">Chroma is starting\u2026</string>
+    <string name="chroma_upgrading_title">Chroma is upgrading\u2026</string>
 
 </resources>

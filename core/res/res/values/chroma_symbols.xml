@@ -60,4 +60,8 @@
   <!-- Vendor warning -->
   <java-symbol type="string" name="system_error_vendorprint" />
 
+  <!-- Starting symbols -->
+  <java-symbol type="string" name="chroma_start_title" />
+  <java-symbol type="string" name="chroma_upgrading_title" />
+
 </resources>
