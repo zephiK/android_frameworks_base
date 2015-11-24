@@ -6234,12 +6234,6 @@ public final class Settings {
          */
         public static final String QS_USE_FOUR_COLUMNS = "qs_use_four_columns";
 
-         /**
-          * Whether to allow killing of the foreground app by long-pressing the Back button
-          * @hide
-          */
-         public static final String KILL_APP_LONGPRESS_BACK = "kill_app_longpress_back";
-
         /**
          * Whether the camera launch gesture should be disabled.
          *
