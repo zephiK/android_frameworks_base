@@ -32,10 +32,11 @@
     <dimen name="phone_height">420dp</dimen>
 
     <!-- Floating action button -->
-    <dimen name="floating_action_button_height">54dp</dimen>
-    <dimen name="floating_action_button_width">54dp</dimen>
-    <dimen name="floating_action_button_translation_z">12dp</dimen>
-    <dimen name="floating_action_button_margin_side">32dp</dimen>
-    <dimen name="floating_action_button_margin_bottom">46dp</dimen>
+    <dimen name="floating_action_button_height">60dp</dimen>
+    <dimen name="floating_action_button_width">60dp</dimen>
+    <dimen name="floating_action_button_translation_z">6dp</dimen>
+    <dimen name="floating_action_button_margin_side">48dp</dimen>
+    <dimen name="floating_action_button_margin_bottom">72dp</dimen>
+    <dimen name="floating_action_button_margin_top">72dp</dimen>
 
 </resources>
