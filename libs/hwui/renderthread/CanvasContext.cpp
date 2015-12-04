@@ -111,16 +111,11 @@ void CanvasContext::setSwapBehavior(SwapBehavior swapBehavior) {
     mSwapBehavior = swapBehavior;
 }
 
-bool CanvasContext::initialize(ANativeWindow* window) {
+void CanvasContext::initialize(ANativeWindow* window) {
     setSurface(window);
-    if (mCanvas) return false;
+    if (mCanvas) return;
     mCanvas = new OpenGLRenderer(mRenderThread.renderState());
     mCanvas->initProperties();
-    if (window) {
-        Surface *s = static_cast<Surface*>(window);
-        s->allocateBuffers();
-    }
-    return true;
 }
 
 void CanvasContext::updateSurface(ANativeWindow* window) {
