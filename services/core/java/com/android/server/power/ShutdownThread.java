@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2008 The Android Open Source Project
- * Copyright (C) 2015 The Pure Nexus Project
+ * Copyright (C) 2013 The CyanogenMod Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,6 +49,7 @@ import android.os.storage.IMountShutdownObserver;
 import android.provider.Settings;
 import android.system.ErrnoException;
 import android.system.Os;
+import android.provider.Settings;
 import android.widget.ListView;
 
 import com.android.internal.telephony.ITelephony;
@@ -138,11 +139,13 @@ public final class ShutdownThread extends Thread {
     }
 
     private static boolean isAdvancedRebootPossible(final Context context) {
-        boolean advancedRebootEnabled = context.getResources().getBoolean(
-            com.android.internal.R.bool.config_advanced_reboot);
+        KeyguardManager km = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
+        boolean keyguardLocked = km.inKeyguardRestrictedInputMode() && km.isKeyguardSecure();
+        boolean advancedRebootEnabled = Settings.Secure.getInt(context.getContentResolver(),
+            Settings.Secure.ADVANCED_REBOOT, 0) == 1;
         boolean isPrimaryUser = UserHandle.getCallingUserId() == UserHandle.USER_OWNER;
 
-        return advancedRebootEnabled && !mRebootSafeMode && isPrimaryUser;
+        return advancedRebootEnabled && !keyguardLocked && isPrimaryUser;
     }
 
     static void shutdownInner(final Context context, boolean confirm) {
