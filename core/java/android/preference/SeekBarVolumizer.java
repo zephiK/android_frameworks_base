@@ -391,7 +391,7 @@ public class SeekBarVolumizer implements OnSeekBarChangeListener, Handler.Callba
             }
         }
         private void updateVolumeSlider(int streamType, int streamValue) {
-                final boolean linkEnabled = Settings.System.getInt(context.getContentResolver(),
+                final boolean linkEnabled = Settings.System.getInt(mContext.getContentResolver(),
                         Settings.System.VOLUME_LINK_NOTIFICATION, 1) == 1;
                 boolean streamMatch = streamType == mStreamType;
                 if (mNotificationOrRing) {
