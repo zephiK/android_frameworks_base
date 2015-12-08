@@ -74,27 +74,32 @@
                     android:visibility="gone"
                     />
 
-                <com.android.systemui.statusbar.StatusBarIconView android:id="@+id/moreIcon"
-                    android:layout_width="@dimen/status_bar_icon_size"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/stat_notify_more"
-                    android:visibility="gone"
-                    />
-                <com.android.systemui.statusbar.widget.CarrierLabel
+                <com.android.keyguard.CarrierText
                     android:id="@+id/statusbar_carrier_text"
+                    android:textAppearance="@style/TextAppearance.StatusBar.Clock"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:textAppearance="@style/TextAppearance.StatusBar.CarrierLabel"
-                    android:visibility="gone"
+                    android:layout_height="fill_parent"
                     android:singleLine="true"
+                    android:ellipsize="end"
+                    android:paddingStart="2dp"
+                    android:paddingEnd="4dp"
+                    android:gravity="center"
+                    android:visibility="gone"
                     />
+
                 <com.android.systemui.statusbar.phone.IconMerger android:id="@+id/notificationIcons"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_alignParentStart="true"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"/>
+
+                <com.android.systemui.statusbar.StatusBarIconView android:id="@+id/moreIcon"
+                    android:layout_width="@dimen/status_bar_icon_size"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/stat_notify_more"
+                    android:visibility="gone"
+                    />
             </com.android.keyguard.AlphaOptimizedLinearLayout>
         </com.android.systemui.statusbar.AlphaOptimizedFrameLayout>
 

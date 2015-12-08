@@ -81,11 +81,11 @@ public class StatusBarIconController implements Tunable {
     private ImageView mMoreIcon;
     private BatteryLevelTextView mBatteryLevelTextView;
     private BatteryMeterView mBatteryMeterView;
-    private TextView mClock;
+    private Clock mClock;
     // Center clock
     private LinearLayout mCenterClockLayout;
-    private TextView mCclock;
-    private TextView mLeftClock;
+    private Clock mCclock;
+    private Clock mLeftClock;
     private boolean mShowClock;
     private int mClockLocation;
     private TextView mCarrier;
@@ -135,10 +135,10 @@ public class StatusBarIconController implements Tunable {
         mBatteryLevelTextView =
                 (BatteryLevelTextView) statusBar.findViewById(R.id.battery_level_text);
         mBatteryMeterView = (BatteryMeterView) statusBar.findViewById(R.id.battery);
-        mClock = (TextView) statusBar.findViewById(R.id.clock);
+        mClock = (Clock) statusBar.findViewById(R.id.clock);
         mCenterClockLayout = (LinearLayout)statusBar.findViewById(R.id.center_clock_layout);
-        mCclock = (TextView) statusBar.findViewById(R.id.center_clock);
-        mLeftClock = (TextView) statusBar.findViewById(R.id.left_clock);
+        mCclock = (Clock) statusBar.findViewById(R.id.center_clock);
+        mLeftClock = (Clock) statusBar.findViewById(R.id.left_clock);
         mCarrier = (TextView) statusBar.findViewById(R.id.statusbar_carrier_text);
         mNetworkTraffic = (NetworkTraffic) statusBar.findViewById(R.id.networkTraffic);
         mLinearOutSlowIn = AnimationUtils.loadInterpolator(mContext,
@@ -149,6 +149,10 @@ public class StatusBarIconController implements Tunable {
         mLightModeIconColorSingleTone = context.getColor(R.color.light_mode_icon_color_single_tone);
         mHandler = new Handler();
         updateResources();
+
+        mClock.setIconController(this);
+        mCclock.setIconController(this);
+        mLeftClock.setIconController(this);
 
         TunerService.get(mContext).addTunable(this, ICON_BLACKLIST);
     }
