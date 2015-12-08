@@ -30,11 +30,47 @@
 
 package com.android.documentsui;
 
+
+/*
+ * Copyright (C) 2013 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * Per article 5 of the Apache 2.0 License, some modifications to this code
+ * were made by the OmniROM Project.
+ *
+ * Modifications Copyright (C) 2013 The OmniROM Project
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 3
+ * of the License, or (at your option) any later version.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+package com.android.documentsui;
+
 import static com.android.documentsui.BaseActivity.State.ACTION_BROWSE;
 import static com.android.documentsui.BaseActivity.State.ACTION_BROWSE_ALL;
 import static com.android.documentsui.BaseActivity.State.ACTION_CREATE;
+import static com.android.documentsui.BaseActivity.State.ACTION_GET_CONTENT;
 import static com.android.documentsui.BaseActivity.State.ACTION_MANAGE;
 import static com.android.documentsui.BaseActivity.State.ACTION_STANDALONE;
+import static com.android.documentsui.BaseActivity.State.ACTION_OPEN;
+import static com.android.documentsui.BaseActivity.State.ACTION_OPEN_TREE;
 import static com.android.documentsui.BaseActivity.State.MODE_GRID;
 import static com.android.documentsui.BaseActivity.State.MODE_LIST;
 import static com.android.documentsui.BaseActivity.State.MODE_UNKNOWN;
@@ -610,11 +646,20 @@ public class DirectoryFragment extends Fragment {
                 // Directories and footer items cannot be checked
                 boolean valid = false;
                 boolean hasFolder = false;
-
+                final State state = getDisplayState(DirectoryFragment.this);
                 final Cursor cursor = mAdapter.getItem(position);
                 if (cursor != null) {
                     final String docMimeType = getCursorString(cursor, Document.COLUMN_MIME_TYPE);
                     final int docFlags = getCursorInt(cursor, Document.COLUMN_FLAGS);
+                    switch (state.action) {
+                        case ACTION_OPEN:
+                        case ACTION_CREATE:
+                        case ACTION_GET_CONTENT:
+                        case ACTION_OPEN_TREE:
+                            valid = isDocumentEnabled(docMimeType, docFlags)
+                                    && !Document.MIME_TYPE_DIR.equals(docMimeType);
+                            break;
+                        default:
                     final State state = getDisplayState(DirectoryFragment.this);
                     if (Document.MIME_TYPE_DIR.equals(docMimeType)) {
                         hasFolder = true;
@@ -630,13 +675,13 @@ public class DirectoryFragment extends Fragment {
                     final MenuItem cut = menu.findItem(R.id.menu_cut);
                     copy.setVisible(false);
                     cut.setVisible(false);
+                            break;
+                    }
                 }
-
                 if (!valid) {
                     mCurrentView.setItemChecked(position, false);
                 }
             }
-
             mode.setTitle(TextUtils.formatSelectedCount(mCurrentView.getCheckedItemCount()));
         }
     };
