@@ -215,6 +215,9 @@ public class RecentsConfiguration {
         // Loading
         maxNumTasksToLoad = ActivityManager.getMaxRecentTasksStatic();
 
+        // Search Bar
+        searchBarSpaceHeightPx = res.getDimensionPixelSize(R.dimen.recents_search_bar_space_height);
+
         // Task stack
         taskStackScrollDuration =
                 res.getInteger(R.integer.recents_animate_task_stack_scroll_duration);
