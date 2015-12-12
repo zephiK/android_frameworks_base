@@ -90,9 +90,9 @@ public class QSPanel extends ViewGroup {
     private QSFooter mFooter;
     private boolean mGridContentVisible = true;
 
-    private SettingsObserver mSettingsObserver;
-
     private boolean mUseMainTiles = false;
+
+    private SettingsObserver mSettingsObserver;
 
     public QSPanel(Context context) {
         this(context, null);
@@ -268,7 +268,9 @@ public class QSPanel extends ViewGroup {
         }
     }
 
-   public void refreshAllTiles() {
+    public void refreshAllTiles() {
+        mUseMainTiles = Settings.Secure.getIntForUser(getContext().getContentResolver(),
+                Settings.Secure.QS_USE_MAIN_TILES, 1, UserHandle.USER_CURRENT) == 1;
         for (int i = 0; i < mRecords.size(); i++) {
             TileRecord r = mRecords.get(i);
             r.tileView.setDual(mUseMainTiles && i < 2);
@@ -517,6 +519,7 @@ public class QSPanel extends ViewGroup {
         int rows = 0;
         for (TileRecord record : mRecords) {
             if (record.tileView.getVisibility() == GONE) continue;
+            // wrap to next column if we've reached the max # of columns
             if (mUseMainTiles && r == 0 && c == 1) {
                 r = 1;
                 c = 0;
