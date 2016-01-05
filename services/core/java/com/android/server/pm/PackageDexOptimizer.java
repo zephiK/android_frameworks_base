@@ -20,7 +20,6 @@ import android.annotation.Nullable;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageParser;
-import android.os.Environment;
 import android.os.PowerManager;
 import android.os.UserHandle;
 import android.os.WorkSource;
@@ -225,11 +224,6 @@ final class PackageDexOptimizer {
         File codePath = new File(pkg.codePath);
         if (codePath.isDirectory()) {
             File oatDir = getOatDir(codePath);
-            // skip the prebundled apps dir since it's actually read-only
-            if (oatDir.getAbsolutePath().startsWith(
-                        Environment.getPrebundledDirectory().getAbsolutePath())) {
-                return null;
-            }
             mPackageManagerService.mInstaller.createOatDir(oatDir.getAbsolutePath(),
                     dexInstructionSet);
             return oatDir.getAbsolutePath();
