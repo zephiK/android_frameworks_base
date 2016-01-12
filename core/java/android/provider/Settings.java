@@ -3605,12 +3605,6 @@ public final class Settings {
          */
         public static final String DOUBLE_TAP_VIBRATE = "double_tap_vibrate";
 
-         /**
-         * Enable double tap gesture anywhere on the lock screen put device to sleep
-         * @hide
-         */
-        public static final String DOUBLE_TAP_SLEEP_LOCK_SCREEN = "double_tap_sleep_lock_screen";
-
         /**
          * Volume rocker wake
          * @hide
