@@ -3111,6 +3111,12 @@ public final class Settings {
         /** @hide */
         public static final Validator TTY_MODE_VALIDATOR = new InclusiveIntegerRangeValidator(0, 3);
 
+         /**
+         * Whether to mute annoying notifications
+         * @hide
+         */
+        public static final String MUTE_ANNOYING_NOTIFICATIONS_THRESHOLD = "mute_annoying_notifications_threshold";
+
         /**
         * Whether national data roaming should be used.
          * @hide
