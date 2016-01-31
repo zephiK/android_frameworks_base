@@ -627,11 +627,11 @@ public class DirectoryFragment extends Fragment {
                                     && !Document.MIME_TYPE_DIR.equals(docMimeType);
                             break;
                         default:
+                            valid = isDocumentEnabled(docMimeType, docFlags);
+                            break;
+                    }
                     if (Document.MIME_TYPE_DIR.equals(docMimeType)) {
                         hasFolder = true;
-                    }
-                    if (!Document.MIME_TYPE_DIR.equals(docMimeType) || state.action == ACTION_STANDALONE) {
-                        valid = isDocumentEnabled(docMimeType, docFlags);
                     }
                 }
 
