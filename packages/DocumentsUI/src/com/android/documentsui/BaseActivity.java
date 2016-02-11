@@ -68,6 +68,7 @@ import com.android.documentsui.model.RootInfo;
 import com.google.common.collect.Maps;
 
 abstract class BaseActivity extends Activity {
+
     static final String EXTRA_STATE = "state";
 
     RootsCache mRoots;
@@ -346,7 +347,6 @@ abstract class BaseActivity extends Activity {
         public static final int ACTION_BROWSE = 6;
         public static final int ACTION_BROWSE_ALL = 7;
         public static final int ACTION_OPEN_COPY_DESTINATION = 8;
-        public static final int ACTION_STANDALONE = 9;
 
         public static final int MODE_UNKNOWN = 0;
         public static final int MODE_LIST = 1;
