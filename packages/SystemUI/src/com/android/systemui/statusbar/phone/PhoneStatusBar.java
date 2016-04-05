@@ -1854,7 +1854,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         }
 
         // apply user lockscreen image
-        if (backdropBitmap == null && !mNotificationPanel.hasExternalKeyguardView()) {
+        if (mMediaMetadata == null && backdropBitmap == null) {
             backdropBitmap = mKeyguardWallpaper;
         }
 
