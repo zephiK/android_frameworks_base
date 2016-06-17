@@ -286,7 +286,7 @@ public class NavigationBarView extends LinearLayout {
             mDeadZone.poke(event);
         }
         if (Settings.System.getInt(mContext.getContentResolver(),
-                    Settings.System.DOUBLE_TAP_SLEEP_NAVBAR, 1) == 1)
+                    Settings.System.DOUBLE_TAP_SLEEP_NAVBAR, 0) == 1)
             mDoubleTapGesture.onTouchEvent(event);
 
         return super.onTouchEvent(event);
