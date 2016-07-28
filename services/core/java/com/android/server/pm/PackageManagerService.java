@@ -5630,7 +5630,8 @@ public class PackageManagerService extends IPackageManager.Stub {
 
     private boolean createIdmapForPackagePairLI(PackageParser.Package pkg,
             PackageParser.Package opkg) {
-        if (!opkg.mTrustedOverlay && !(!opkg.mTrustedOverlay && opkg.mOverlayPriority == -1)) {
+        if (!opkg.mTrustedOverlay && compareSignatures(pkg.mSignatures, opkg.mSignatures) !=
+                PackageManager.SIGNATURE_MATCH) {
             Slog.w(TAG, "Skipping target and overlay pair " + pkg.baseCodePath + " and " +
                     opkg.baseCodePath + ": signatures do not match");
             return false;
